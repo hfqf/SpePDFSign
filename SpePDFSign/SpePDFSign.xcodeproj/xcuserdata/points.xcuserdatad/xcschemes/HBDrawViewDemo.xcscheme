@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5E1F3FA81BF33C4B00ACE525"
-               BuildableName = "SpeDrawViewDemo.app"
-               BlueprintName = "SpeDrawViewDemo"
-               ReferencedContainer = "container:SpeDrawViewDemo.xcodeproj">
+               BuildableName = "SpePDFSign.app"
+               BlueprintName = "SpePDFSign"
+               ReferencedContainer = "container:SpePDFSign.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "5E1F3FC11BF33C4B00ACE525"
                BuildableName = "SpeDrawViewDemoTests.xctest"
                BlueprintName = "SpeDrawViewDemoTests"
-               ReferencedContainer = "container:SpeDrawViewDemo.xcodeproj">
+               ReferencedContainer = "container:SpePDFSign.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "5E1F3FCC1BF33C4B00ACE525"
                BuildableName = "SpeDrawViewDemoUITests.xctest"
                BlueprintName = "SpeDrawViewDemoUITests"
-               ReferencedContainer = "container:SpeDrawViewDemo.xcodeproj">
+               ReferencedContainer = "container:SpePDFSign.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5E1F3FA81BF33C4B00ACE525"
-            BuildableName = "SpeDrawViewDemo.app"
-            BlueprintName = "SpeDrawViewDemo"
-            ReferencedContainer = "container:SpeDrawViewDemo.xcodeproj">
+            BuildableName = "SpePDFSign.app"
+            BlueprintName = "SpePDFSign"
+            ReferencedContainer = "container:SpePDFSign.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5E1F3FA81BF33C4B00ACE525"
-            BuildableName = "SpeDrawViewDemo.app"
-            BlueprintName = "SpeDrawViewDemo"
-            ReferencedContainer = "container:SpeDrawViewDemo.xcodeproj">
+            BuildableName = "SpePDFSign.app"
+            BlueprintName = "SpePDFSign"
+            ReferencedContainer = "container:SpePDFSign.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5E1F3FA81BF33C4B00ACE525"
-            BuildableName = "SpeDrawViewDemo.app"
-            BlueprintName = "SpeDrawViewDemo"
-            ReferencedContainer = "container:SpeDrawViewDemo.xcodeproj">
+            BuildableName = "SpePDFSign.app"
+            BlueprintName = "SpePDFSign"
+            ReferencedContainer = "container:SpePDFSign.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

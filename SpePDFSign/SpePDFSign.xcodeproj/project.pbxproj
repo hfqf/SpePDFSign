@@ -52,7 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5E1F3FA91BF33C4B00ACE525 /* SpeDrawViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeDrawViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E1F3FA91BF33C4B00ACE525 /* SpePDFSign.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpePDFSign.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E1F3FAD1BF33C4B00ACE525 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5E1F3FAF1BF33C4B00ACE525 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5E1F3FB01BF33C4B00ACE525 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -107,6 +107,8 @@
 		5E1F404E1BF3430400ACE525 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5EB303F41E6D6CF400424712 /* NSFileManager+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Helper.h"; sourceTree = "<group>"; };
 		5EB303F51E6D6CF400424712 /* NSFileManager+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Helper.m"; sourceTree = "<group>"; };
+		7D20F40E1F60DFC8007A357C /* SpePDFXib.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpePDFXib.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D20F4101F60DFC9007A357C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D43B1BE1F05F76000BE2571 /* HBDrawViewDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HBDrawViewDemo.entitlements; sourceTree = "<group>"; };
 		7DC614561EDD3F2E00DFBC73 /* SpeZoomImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeZoomImageView.h; path = ../../Image2pdf/SpeZoomImageView.h; sourceTree = "<group>"; };
 		7DC614571EDD3F2E00DFBC73 /* SpeZoomImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpeZoomImageView.m; path = ../../Image2pdf/SpeZoomImageView.m; sourceTree = "<group>"; };
@@ -143,6 +145,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7D20F40B1F60DFC8007A357C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -152,6 +161,7 @@
 				7DCBD5A01EDDCAE70072C43C /* 1.pdf */,
 				5E1F404E1BF3430400ACE525 /* UIKit.framework */,
 				5E1F3FAB1BF33C4B00ACE525 /* HBDrawViewDemo */,
+				7D20F40F1F60DFC9007A357C /* SpePDFXib */,
 				5E1F3FAA1BF33C4B00ACE525 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -159,7 +169,8 @@
 		5E1F3FAA1BF33C4B00ACE525 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5E1F3FA91BF33C4B00ACE525 /* SpeDrawViewDemo.app */,
+				5E1F3FA91BF33C4B00ACE525 /* SpePDFSign.app */,
+				7D20F40E1F60DFC8007A357C /* SpePDFXib.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -290,6 +301,14 @@
 			path = MJExtension;
 			sourceTree = "<group>";
 		};
+		7D20F40F1F60DFC9007A357C /* SpePDFXib */ = {
+			isa = PBXGroup;
+			children = (
+				7D20F4101F60DFC9007A357C /* Info.plist */,
+			);
+			path = SpePDFXib;
+			sourceTree = "<group>";
+		};
 		7DF28C3F1EDC857B007B82D2 /* UIImage+PDF */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,9 +342,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5E1F3FA81BF33C4B00ACE525 /* SpeDrawViewDemo */ = {
+		5E1F3FA81BF33C4B00ACE525 /* SpePDFSign */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5E1F3FD61BF33C4B00ACE525 /* Build configuration list for PBXNativeTarget "SpeDrawViewDemo" */;
+			buildConfigurationList = 5E1F3FD61BF33C4B00ACE525 /* Build configuration list for PBXNativeTarget "SpePDFSign" */;
 			buildPhases = (
 				5E1F3FA51BF33C4B00ACE525 /* Sources */,
 				5E1F3FA61BF33C4B00ACE525 /* Frameworks */,
@@ -335,10 +354,27 @@
 			);
 			dependencies = (
 			);
-			name = SpeDrawViewDemo;
+			name = SpePDFSign;
 			productName = HBDrawViewDemo;
-			productReference = 5E1F3FA91BF33C4B00ACE525 /* SpeDrawViewDemo.app */;
+			productReference = 5E1F3FA91BF33C4B00ACE525 /* SpePDFSign.app */;
 			productType = "com.apple.product-type.application";
+		};
+		7D20F40D1F60DFC8007A357C /* SpePDFXib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D20F4111F60DFC9007A357C /* Build configuration list for PBXNativeTarget "SpePDFXib" */;
+			buildPhases = (
+				7D20F40A1F60DFC8007A357C /* Sources */,
+				7D20F40B1F60DFC8007A357C /* Frameworks */,
+				7D20F40C1F60DFC8007A357C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpePDFXib;
+			productName = SpePDFXib;
+			productReference = 7D20F40E1F60DFC8007A357C /* SpePDFXib.bundle */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -359,9 +395,14 @@
 							};
 						};
 					};
+					7D20F40D1F60DFC8007A357C = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = BJW9F34F29;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
-			buildConfigurationList = 5E1F3FA41BF33C4B00ACE525 /* Build configuration list for PBXProject "SpeDrawViewDemo" */;
+			buildConfigurationList = 5E1F3FA41BF33C4B00ACE525 /* Build configuration list for PBXProject "SpePDFSign" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -374,7 +415,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5E1F3FA81BF33C4B00ACE525 /* SpeDrawViewDemo */,
+				5E1F3FA81BF33C4B00ACE525 /* SpePDFSign */,
+				7D20F40D1F60DFC8007A357C /* SpePDFXib */,
 			);
 		};
 /* End PBXProject section */
@@ -390,6 +432,13 @@
 				5E1F40221BF33C9D00ACE525 /* HBDrawSettingBoard.xib in Resources */,
 				5E1F3FBC1BF33C4B00ACE525 /* LaunchScreen.storyboard in Resources */,
 				5E1F3FB91BF33C4B00ACE525 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D20F40C1F60DFC8007A357C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +484,13 @@
 				5E1F40321BF33C9D00ACE525 /* MJPropertyType.m in Sources */,
 				5E1F40201BF33C9D00ACE525 /* HBBackImageBoard.m in Sources */,
 				7DF28C501EDC857B007B82D2 /* UIView+Image.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D20F40A1F60DFC8007A357C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,10 +622,54 @@
 			};
 			name = Release;
 		};
+		7D20F4121F60DFC9007A357C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = BJW9F34F29;
+				INFOPLIST_FILE = SpePDFXib/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hfqf.SpePDFXib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		7D20F4131F60DFC9007A357C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = BJW9F34F29;
+				INFOPLIST_FILE = SpePDFXib/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hfqf.SpePDFXib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5E1F3FA41BF33C4B00ACE525 /* Build configuration list for PBXProject "SpeDrawViewDemo" */ = {
+		5E1F3FA41BF33C4B00ACE525 /* Build configuration list for PBXProject "SpePDFSign" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5E1F3FD41BF33C4B00ACE525 /* Debug */,
@@ -578,7 +678,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5E1F3FD61BF33C4B00ACE525 /* Build configuration list for PBXNativeTarget "SpeDrawViewDemo" */ = {
+		5E1F3FD61BF33C4B00ACE525 /* Build configuration list for PBXNativeTarget "SpePDFSign" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5E1F3FD71BF33C4B00ACE525 /* Debug */,
@@ -586,6 +686,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		7D20F4111F60DFC9007A357C /* Build configuration list for PBXNativeTarget "SpePDFXib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D20F4121F60DFC9007A357C /* Debug */,
+				7D20F4131F60DFC9007A357C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
