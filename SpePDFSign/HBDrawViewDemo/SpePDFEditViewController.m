@@ -14,6 +14,12 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
 
 
 @interface SpePDFEditViewController ()<HBDrawingBoardDelegate>
+{
+    UIView   *m_topMenuView;
+    UIView   *m_bg;
+    UISlider *m_slier;
+    UILabel  *m_tipLab;
+}
 @property(nonatomic,strong)NSURL *m_pdfUrl;
 @property (nonatomic, strong) HBDrawingBoard *drawView;
 @end
@@ -61,26 +67,22 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"签批";
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.drawView];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [btn setTitle:@"签批设置" forState:UIControlStateNormal];
-    [btn setFrame:CGRectMake(0, 0, 80, 44)];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    self.navigationItem.rightBarButtonItem = item;
-    [btn addTarget:self action:@selector(drawSetting:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [backBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
-    [backBtn setFrame:CGRectMake(0, 0, 80, 44)];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithCustomView:backBtn];
-    self.navigationItem.leftBarButtonItem = backItem;
-    [backBtn addTarget:self action:@selector(onQuitPDFEdit) forControlEvents:UIControlEventTouchUpInside];
+
+    [self showMenuView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -101,19 +103,7 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
             break;
         case actionOpenCamera:
         {
-            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                
-                UIImagePickerController *pickVc = [[UIImagePickerController alloc] init];
-                
-                pickVc.sourceType = UIImagePickerControllerSourceTypeCamera;
-                pickVc.delegate = self;
-                [self presentViewController:pickVc animated:YES completion:nil];
-                
-            }else{
-                
-                UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你没有摄像头" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                [alter show];
-            }
+
         }
             break;
             
@@ -126,6 +116,12 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
     
     NSLog(@"%@",model.keyValues);
 }
+
+- (void)onShowOrHideMenuView
+{
+    [self showMenuView];
+}
+
 
 - (void)onZXCustomWindowState:(BOOL)isShow
 {
@@ -154,5 +150,64 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
     return _drawView;
 }
 
+#pragma mark - 签批menu
+- (void)showMenuView
+{
+    if(m_topMenuView == nil){
+        m_topMenuView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 50)];
+        [m_topMenuView setBackgroundColor:[UIColor colorWithRed:216.0/255.0 green:235.0/255.0 blue:234.0/255.0 alpha:0.5]];
+        [self.view addSubview:m_topMenuView];
+
+        for(int i=0;i<5;i++){
+            int width = [UIScreen mainScreen].bounds.size.width/5;
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setBackgroundColor:[UIColor clearColor]];
+            [btn setFrame:CGRectMake(width*i, 0, width, 50)];
+            [btn addTarget:self action:@selector(menuBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [m_topMenuView addSubview:btn];
+            btn.tag = i;
+            if(i==0){
+                [btn setImage:[UIImage imageNamed:@"es_erase"] forState:UIControlStateNormal];
+            }else if (i==1){
+                [btn setImage:[UIImage imageNamed:@"es_remark"] forState:UIControlStateNormal];
+            }else if (i==2){
+                [btn setImage:[UIImage imageNamed:@"es_instal"] forState:UIControlStateNormal];
+            }else if (i==3){
+                [btn setImage:[UIImage imageNamed:@"es_save"] forState:UIControlStateNormal];
+            }else{
+                [btn setImage:[UIImage imageNamed:@"es_saveout"] forState:UIControlStateNormal];
+            }
+        }
+    }else{
+
+        m_topMenuView.hidden =! m_topMenuView.hidden;
+
+        if(m_topMenuView.hidden){
+            [self.drawView hideSettingBoard];
+        }else{
+            [self.drawView showSettingBoard];
+        }
+    }
+}
+
+- (void)hideMenuView
+{
+
+}
+
+- (void)menuBtnClicked:(UIButton *)btn
+{
+    if(btn.tag == 0){
+
+    }else if (btn.tag == 1){
+
+    }else if (btn.tag == 1){
+
+    }else if (btn.tag == 1){
+
+    }else{
+        
+    }
+}
 
 @end

@@ -145,6 +145,10 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if(!self.m_isDrawing){
+
+        if ([self.delegate respondsToSelector:@selector(onShowOrHideMenuView)]) {
+            [self.delegate onShowOrHideMenuView];
+        }
         return;
     }
     

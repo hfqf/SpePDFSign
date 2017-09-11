@@ -43,6 +43,8 @@ typedef NS_ENUM(NSInteger, actionOpen) {
 - (void)drawBoard:(HBDrawingBoard *)drawView drawingStatus:(HBDrawingStatus)drawingStatus model:(HBDrawModel *)model;
 - (void)onQuitPDFEdit;
 
+- (void)onShowOrHideMenuView;
+
 @end
 
 @interface HBDrawingBoard : UIView
