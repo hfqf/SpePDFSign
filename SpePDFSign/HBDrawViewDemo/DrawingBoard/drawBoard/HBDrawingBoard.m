@@ -15,6 +15,7 @@
 #import "HBDrawSettingBoard.h"
 #import "NSFileManager+Helper.h"
 #import "WYPDFFile.h"
+
 @interface HBDrawingBoard()
 {
     UIColor *_lastColor;
@@ -36,7 +37,6 @@
 
 @property (nonatomic, strong) HBDrawView *drawView;
 
-@property (nonatomic, strong) HBDrawSettingBoard *settingBoard;
 
 @property (nonatomic, strong) ZXCustomWindow *drawWindow;
 
@@ -49,6 +49,13 @@
 #define ThumbnailPath [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"HBThumbnail"]
 
 @implementation HBDrawingBoard
+
+- (void)resetPdfDatasources:(NSURL *)pdfUrl
+{
+    UIImage_PDFModel *pdfModel = [[UIImage_PDFModel alloc]initWith:pdfUrl];
+    self.settingBoard.m_pdfModel = pdfModel;
+}
+
 
 - (instancetype)initWithFrame:(CGRect)frame withPDFUrl:(NSURL *)pdfUrl
 {
@@ -394,13 +401,14 @@
                     break;
                 case setTypeSave:
                 {
+                    
+
                     [weakSelf.drawWindow hideWithAnimationTime:0.25];
                     [self.backImage reset];
                     UIImage *currentImage = [self screenshot:self];
-//                    UIImageWriteToSavedPhotosAlbum([self screenshot:self], nil, nil, nil);
-                    
                     
                     [self.settingBoard.m_pdfModel.m_arrPDFImages replaceObjectAtIndex:self.settingBoard.m_pdfModel.m_indexPage withObject:currentImage];
+
                     
                     NSString *name = [NSString stringWithFormat:@"%@.pdf",[self getTimeString]];
                     NSString *pdfPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:name];
@@ -417,9 +425,39 @@
                         [[NSNotificationCenter defaultCenter]postNotificationName:PDFSavedNotification object:@""];
                         NSLog(@"保存失败");
                     }
+                    [self.delegate onSaveWith:pdfPath];
+                    break;
                     
                 }
+                case setTypeSaveAndQuit:
+                {
+                    [weakSelf.drawWindow hideWithAnimationTime:0.25];
+                    [self.backImage reset];
+                    UIImage *currentImage = [self screenshot:self];
+                    //                    UIImageWriteToSavedPhotosAlbum([self screenshot:self], nil, nil, nil);
+
+
+                    [self.settingBoard.m_pdfModel.m_arrPDFImages replaceObjectAtIndex:self.settingBoard.m_pdfModel.m_indexPage withObject:currentImage];
+
+                    NSString *name = [NSString stringWithFormat:@"%@.pdf",[self getTimeString]];
+                    NSString *pdfPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:name];
+                    BOOL result = [WYPDFFile createPDFWithImages:self.settingBoard.m_pdfModel.m_arrPDFImages fileName:name];
+
+                    if(result){
+                        NSString * PDFSavedNotification        = @"PDFSavedNotification";
+                        [[NSNotificationCenter defaultCenter]postNotificationName:PDFSavedNotification object:pdfPath];
+                        NSLog(@"保存成功");
+                    }
+                    else
+                    {
+                        NSString * PDFSavedNotification        = @"PDFSavedNotification";
+                        [[NSNotificationCenter defaultCenter]postNotificationName:PDFSavedNotification object:@""];
+                        NSLog(@"保存失败");
+                    }
+                    [self.delegate onQuitPDFEdit:pdfPath];
                     break;
+                }
+
                 case setTypeEraser:
                 {
                     

@@ -29,6 +29,11 @@ typedef void(^boardSettingBlock)(setType type);
 - (void)getSettingType:(boardSettingBlock)type;
 - (CGFloat)getLineWidth;
 - (UIColor *)getLineColor;
+- (void)eraserBtnClicked;
+- (void)startSignBtnClicked;
+- (void)signEditBtnClicked;
+- (void)saveBtnClicked;
+- (void)saveAndQutiBtnClicked;
 @property (nonatomic,strong) UIImage_PDFModel *m_pdfModel;
 
 @end
@@ -41,4 +46,6 @@ typedef void(^boardSettingBlock)(setType type);
 @property (nonatomic, assign) CGFloat ballSize;
 
 @property (nonatomic, assign) CGFloat lineWidth;
+
+
 @end

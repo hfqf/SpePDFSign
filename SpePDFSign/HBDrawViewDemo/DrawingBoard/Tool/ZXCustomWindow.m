@@ -12,7 +12,7 @@
 @interface ZXCustomWindow()
 
 @property (nonatomic, weak) UIView *animationView;
-
+@property (nonatomic,strong)MenuView *m_menuView;
 @end
 
 @implementation ZXCustomWindow
@@ -24,9 +24,15 @@
         self.windowLevel = UIWindowLevelAlert;
         
         self.animationView = animationView;
+
         
         [self addSubview:self.animationView];
-        
+
+
+        self.m_menuView = [[MenuView alloc]initWithFrame:CGRectMake(0,0, [UIScreen mainScreen].bounds.size.width, 70)];
+        self.m_menuView.m_delegate = self;
+        [self addSubview:self.m_menuView];
+
         [[NSNotificationCenter defaultCenter] addObserverForName:@"hideTopWindow" object:nil queue:nil usingBlock:^(NSNotification *note) {
             
             [self hideWithAnimationTime:self.animationTime];
@@ -38,18 +44,25 @@
 
 }
 
+
+#pragma mark - MenuViewDelegate
+
+- (void)onMenuItemSelected:(NSInteger)tag
+{
+    [self.m_delegate onMenuItem:tag];
+}
+
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     CGPoint touchPoint = [[touches anyObject] locationInView:self];
-    
+
+    if(self.m_delegate && [self.m_delegate respondsToSelector:@selector(onHideMenuView)]){
+        [self.m_delegate onHideMenuView];
+    }
     if (!CGRectContainsPoint(self.animationView.frame, touchPoint))
         [self hideWithAnimationTime:self.animationTime];
 
-//    for (UIView *view in self.subviews) {
-////        if ([view isKindOfClass:[giftInfoView class]] || [view isKindOfClass:[putView class]]) {
-//            [self hideWithAnimationTime:self.animationTime];
-////        }
-//    }
 }
 
 - (void)showWithAnimationTime:(NSTimeInterval)second
@@ -63,7 +76,7 @@
         
         [UIView animateWithDuration:0.1 animations:^{
             
-            self.animationView.transform = CGAffineTransformMakeTranslation(0, -self.animationView.bounds.size.height);
+            self.animationView.transform = CGAffineTransformMakeTranslation(0, -self.animationView.bounds.size.height+64);
             
         }];
        

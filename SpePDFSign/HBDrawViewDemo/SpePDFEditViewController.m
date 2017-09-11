@@ -9,19 +9,17 @@
 #import "UIView+WHB.h"
 #import "HBDrawingBoard.h"
 #import "MJExtension.h"
-
+#import "MenuView.h"
 NSString * const PDFSavedNotification        = @"PDFSavedNotification";
 
 
-@interface SpePDFEditViewController ()<HBDrawingBoardDelegate>
+@interface SpePDFEditViewController ()<HBDrawingBoardDelegate,MenuViewDelegate>
 {
-    UIView   *m_topMenuView;
-    UIView   *m_bg;
-    UISlider *m_slier;
-    UILabel  *m_tipLab;
+
 }
 @property(nonatomic,strong)NSURL *m_pdfUrl;
 @property (nonatomic, strong) HBDrawingBoard *drawView;
+@property (nonatomic,strong) MenuView *m_menuView;
 @end
 
 @implementation SpePDFEditViewController
@@ -41,8 +39,10 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
                                                          queue:nil usingBlock:^(NSNotification * _Nonnull note) {
                                                              NSString *path = note.object;
                                                              if(path.length > 0){
-                                                                 [self.m_pdfDelegate onSavedNewPDF:path];
-                                                                 [self onQuitPDFEdit];
+                                                                 if(self.m_pdfDelegate && [self.m_pdfDelegate respondsToSelector:@selector(onSavedNewPDF:)]){
+                                                                     [self.m_pdfDelegate onSavedNewPDF:path];
+                                                                 }
+
                                                              }else{
                                                                  
                                                              }
@@ -69,8 +69,6 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.drawView];
-
-    [self showMenuView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -119,7 +117,54 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
 
 - (void)onShowOrHideMenuView
 {
-    [self showMenuView];
+     [self drawSetting:nil];
+}
+
+- (void)onMenuItem:(NSInteger)tag
+{
+    if(self.m_menuView){
+        [self.m_menuView removeFromSuperview];
+        self.m_menuView = nil;
+    }
+
+    if(tag == 0){
+
+        [self.drawView.settingBoard eraserBtnClicked];
+
+    }else if (tag == 1){
+
+        self.m_menuView = [[MenuView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 70)];
+        self.m_menuView.m_delegate = self;
+        [self.view addSubview:self.m_menuView];
+
+        [self.drawView.settingBoard startSignBtnClicked];
+
+    }else if (tag == 2){
+        [self.drawView.settingBoard signEditBtnClicked];
+    }else if (tag == 3){
+        [self.drawView hideSettingBoard];
+        [self.drawView.settingBoard saveBtnClicked];
+    }else{
+        [self.drawView hideSettingBoard];
+        [self.drawView.settingBoard saveAndQutiBtnClicked];
+    }
+}
+
+- (void)onQuitPDFEdit:(NSString *)pdfPath
+{
+    if(self.navigationController){
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
+}
+
+- (void)onSaveWith:(NSString *)pdfPath
+{
+    self.m_pdfUrl = [NSURL fileURLWithPath:pdfPath];
+    [self.drawView hideSettingBoard];
+    [self.drawView resetPdfDatasources:self.m_pdfUrl];
+
 }
 
 
@@ -131,14 +176,11 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
     [self.navigationController setNavigationBarHidden:isShow animated:YES];
 }
 
-- (void)onQuitPDFEdit
+- (void)onMenuItemSelected:(NSInteger)tag
 {
-    if(self.navigationController){
-        [self.navigationController popViewControllerAnimated:YES];
-    }else{
-        [self dismissViewControllerAnimated:YES completion:NULL];
-    }
+    [self onMenuItem:tag];
 }
+
 
 - (HBDrawingBoard *)drawView
 {
@@ -150,69 +192,5 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
     return _drawView;
 }
 
-#pragma mark - 签批menu
-- (void)showMenuView
-{
-    if(m_topMenuView == nil){
-        m_topMenuView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 50)];
-        [m_topMenuView setBackgroundColor:[UIColor colorWithRed:216.0/255.0 green:235.0/255.0 blue:234.0/255.0 alpha:0.5]];
-        [self.view addSubview:m_topMenuView];
-
-        for(int i=0;i<5;i++){
-            int width = [UIScreen mainScreen].bounds.size.width/5;
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [btn setBackgroundColor:[UIColor clearColor]];
-            [btn setFrame:CGRectMake(width*i, 0, width, 50)];
-            [btn addTarget:self action:@selector(menuBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-            [m_topMenuView addSubview:btn];
-            btn.tag = i;
-            if(i==0){
-                [btn setImage:[UIImage imageNamed:@"es_erase"] forState:UIControlStateNormal];
-            }else if (i==1){
-                [btn setImage:[UIImage imageNamed:@"es_remark"] forState:UIControlStateNormal];
-            }else if (i==2){
-                [btn setImage:[UIImage imageNamed:@"es_instal"] forState:UIControlStateNormal];
-            }else if (i==3){
-                [btn setImage:[UIImage imageNamed:@"es_save"] forState:UIControlStateNormal];
-            }else{
-                [btn setImage:[UIImage imageNamed:@"es_saveout"] forState:UIControlStateNormal];
-            }
-        }
-    }else{
-
-        m_topMenuView.hidden =! m_topMenuView.hidden;
-
-        if(m_topMenuView.hidden){
-            [self.drawView hideSettingBoard];
-        }else{
-            [self.drawView showSettingBoard];
-        }
-    }
-}
-
-- (void)hideMenuView
-{
-
-}
-
-- (void)menuBtnClicked:(UIButton *)btn
-{
-    if(btn.tag == 0){
-
-    }else if (btn.tag == 1){
-
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"1"];
-
-
-    }else if (btn.tag == 2){
-
-    }else if (btn.tag == 3){
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"0"];
-
-    }else{
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"0"];
-        [self onQuitPDFEdit];
-    }
-}
 
 @end

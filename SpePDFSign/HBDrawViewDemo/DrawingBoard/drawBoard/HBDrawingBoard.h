@@ -10,6 +10,7 @@
 #import "HBDrawModel.h"
 #import "SpeZoomImageView.h"
 #import "ZXCustomWindow.h"
+#import "HBDrawSettingBoard.h"
 
 typedef NS_ENUM(NSInteger, HBDrawingStatus)
 {
@@ -41,9 +42,11 @@ typedef NS_ENUM(NSInteger, actionOpen) {
 
 - (void)drawBoard:(HBDrawingBoard *)drawView action:(actionOpen)action;
 - (void)drawBoard:(HBDrawingBoard *)drawView drawingStatus:(HBDrawingStatus)drawingStatus model:(HBDrawModel *)model;
-- (void)onQuitPDFEdit;
+- (void)onSaveWith:(NSString *)pdfPath;
+- (void)onQuitPDFEdit:(NSString *)pdfPath;
 
 - (void)onShowOrHideMenuView;
+
 
 @end
 
@@ -56,6 +59,9 @@ typedef NS_ENUM(NSInteger, actionOpen) {
 @property (nonatomic, strong) SpeZoomImageView *backImage;
 
 @property (nonatomic, weak) id<HBDrawingBoardDelegate> delegate;
+
+@property (nonatomic, strong) HBDrawSettingBoard *settingBoard;
+
 /**
  *  根据点的集合绘制      
  *
@@ -70,6 +76,7 @@ typedef NS_ENUM(NSInteger, actionOpen) {
 - (BOOL)drawWithPoints:(HBDrawModel *)model;
 - (void)showSettingBoard;
 - (void)hideSettingBoard;
+- (void)resetPdfDatasources:(NSURL *)pdfUrl;
 
 + (HBDrawModel *)objectWith:(NSDictionary *)dic;
 @end
@@ -83,6 +90,8 @@ typedef NS_ENUM(NSInteger, actionOpen) {
 @property (nonatomic, assign) HBDrawingShapeType shapType;//绘制样式
 @property (nonatomic, copy) NSString *imagePath;//图片路径
 @property (nonatomic, strong) UIBezierPath *bezierPath;
+
+
 
 
 + (instancetype)pathToPoint:(CGPoint)beginPoint pathWidth:(CGFloat)pathWidth isEraser:(BOOL)isEraser;//初始化对象

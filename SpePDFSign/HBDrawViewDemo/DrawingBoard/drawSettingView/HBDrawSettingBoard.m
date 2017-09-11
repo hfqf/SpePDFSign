@@ -115,6 +115,9 @@ static NSString * const collectionCellID = @"collectionCellID";
    
 }
 - (IBAction)saveImage:(id)sender {
+
+    self.backImageView.hidden = NO;
+    self.centerView.hidden = self.collectionView.hidden = YES;
     
     if (self.stype) {
         self.stype(setTypeQuit);
@@ -148,6 +151,43 @@ static NSString * const collectionCellID = @"collectionCellID";
 - (IBAction)sliderView:(UISlider *)sender {
     
     self.ballView.ballSize = sender.value;
+}
+
+- (void)eraserBtnClicked
+{
+    if (self.stype) {
+        self.stype(setTypeClearAll);
+    }
+}
+
+- (void)startSignBtnClicked
+{
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"1"];
+
+}
+
+- (void)signEditBtnClicked
+{
+    self.backImageView.hidden = YES;
+    self.centerView.hidden = self.collectionView.hidden = NO;
+
+    if (self.stype) {
+        self.stype(setTypePen);
+    }
+}
+
+- (void)saveBtnClicked
+{
+    if (self.stype) {
+        self.stype(setTypeSave);
+    }
+}
+
+- (void)saveAndQutiBtnClicked
+{
+    if (self.stype) {
+        self.stype(setTypeSaveAndQuit);
+    }
 }
 
 #pragma mark - collectionView

@@ -97,7 +97,7 @@ static NSString * const collectionCellID = @"collectionCellID";
     self.backImageView.hidden = NO;
     self.centerView.hidden = self.collectionView.hidden = YES;
     
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"0"];
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"0"];
 }
 - (IBAction)openCamera:(UIButton *)sender {
 

@@ -7,14 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @protocol ZXCustomWindowDelegate <NSObject>
 
 @required
 - (void)onZXCustomWindowState:(BOOL)isShow;
 
+- (void)onHideMenuView;
+
+- (void)onMenuItem:(NSInteger)tag;
+
 @end
 
-@interface ZXCustomWindow : UIWindow
+#import "MenuView.h"
+
+@interface ZXCustomWindow : UIWindow<MenuViewDelegate>
 
 - (instancetype)initWithAnimationView:(UIView *)animationView;
 

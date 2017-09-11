@@ -36,6 +36,7 @@
 		5E1F404D1BF3416100ACE525 /* HBDrawCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1F404C1BF3416100ACE525 /* HBDrawCommon.m */; };
 		5E1F404F1BF3430400ACE525 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E1F404E1BF3430400ACE525 /* UIKit.framework */; };
 		5EB303F61E6D6CF400424712 /* NSFileManager+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB303F51E6D6CF400424712 /* NSFileManager+Helper.m */; };
+		7D99B9B11F667A1D00723537 /* MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D99B9B01F667A1D00723537 /* MenuView.m */; };
 		7DC614581EDD3F2E00DFBC73 /* SpeZoomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC614571EDD3F2E00DFBC73 /* SpeZoomImageView.m */; };
 		7DC6145F1EDD657D00DFBC73 /* SpePDFEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC6145E1EDD657D00DFBC73 /* SpePDFEditViewController.m */; };
 		7DCBD5A11EDDCAE70072C43C /* 1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBD5A01EDDCAE70072C43C /* 1.pdf */; };
@@ -110,6 +111,8 @@
 		7D20F40E1F60DFC8007A357C /* SpePDFXib.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpePDFXib.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D20F4101F60DFC9007A357C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D43B1BE1F05F76000BE2571 /* HBDrawViewDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HBDrawViewDemo.entitlements; sourceTree = "<group>"; };
+		7D99B9AF1F667A1D00723537 /* MenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuView.h; sourceTree = "<group>"; };
+		7D99B9B01F667A1D00723537 /* MenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuView.m; sourceTree = "<group>"; };
 		7DC614561EDD3F2E00DFBC73 /* SpeZoomImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeZoomImageView.h; path = ../../Image2pdf/SpeZoomImageView.h; sourceTree = "<group>"; };
 		7DC614571EDD3F2E00DFBC73 /* SpeZoomImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpeZoomImageView.m; path = ../../Image2pdf/SpeZoomImageView.m; sourceTree = "<group>"; };
 		7DC6145D1EDD657D00DFBC73 /* SpePDFEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpePDFEditViewController.h; sourceTree = "<group>"; };
@@ -190,6 +193,8 @@
 				7DF96DC51F04F2DD0068F2E8 /* LocalPDFViewController.xib */,
 				7DC6145D1EDD657D00DFBC73 /* SpePDFEditViewController.h */,
 				7DC6145E1EDD657D00DFBC73 /* SpePDFEditViewController.m */,
+				7D99B9AF1F667A1D00723537 /* MenuView.h */,
+				7D99B9B01F667A1D00723537 /* MenuView.m */,
 				5E1F3FB81BF33C4B00ACE525 /* Assets.xcassets */,
 				5E1F3FBA1BF33C4B00ACE525 /* LaunchScreen.storyboard */,
 				5E1F3FBD1BF33C4B00ACE525 /* Info.plist */,
@@ -478,6 +483,7 @@
 				5E1F402C1BF33C9D00ACE525 /* UIView+WHB.m in Sources */,
 				7DC6145F1EDD657D00DFBC73 /* SpePDFEditViewController.m in Sources */,
 				5E1F40271BF33C9D00ACE525 /* HBBallColorModel.m in Sources */,
+				7D99B9B11F667A1D00723537 /* MenuView.m in Sources */,
 				5E1F40371BF33C9D00ACE525 /* NSString+MJExtension.m in Sources */,
 				7DC614581EDD3F2E00DFBC73 /* SpeZoomImageView.m in Sources */,
 				5E1F40331BF33C9D00ACE525 /* NSObject+MJClass.m in Sources */,
@@ -694,6 +700,7 @@
 				7D20F4131F60DFC9007A357C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
