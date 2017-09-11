@@ -118,6 +118,7 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
 - (void)onShowOrHideMenuView
 {
      [self drawSetting:nil];
+     [self.drawView.settingBoard showSelectView];
 }
 
 - (void)onMenuItem:(NSInteger)tag
@@ -140,6 +141,10 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
         [self.drawView.settingBoard startSignBtnClicked];
 
     }else if (tag == 2){
+
+        self.m_menuView = [[MenuView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 70)];
+        self.m_menuView.m_delegate = self;
+        [self.view addSubview:self.m_menuView];
         [self.drawView.settingBoard signEditBtnClicked];
     }else if (tag == 3){
         [self.drawView hideSettingBoard];

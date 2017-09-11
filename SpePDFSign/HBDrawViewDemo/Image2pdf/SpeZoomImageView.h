@@ -16,5 +16,7 @@
     UIPinchGestureRecognizer *m_pinchGestureRecognizer;
 }
 
+- (float)scale;
+
 - (void)reset;
 @end

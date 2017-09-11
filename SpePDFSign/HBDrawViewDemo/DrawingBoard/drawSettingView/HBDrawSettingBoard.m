@@ -109,18 +109,17 @@ static NSString * const collectionCellID = @"collectionCellID";
 }
 - (IBAction)openAlbum:(UIButton *)sender {
     
-    if (self.stype) {
-        self.stype(setTypeSave);
-    }
+
    
 }
 - (IBAction)saveImage:(id)sender {
 
     self.backImageView.hidden = NO;
     self.centerView.hidden = self.collectionView.hidden = YES;
-    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"0"];
+
     if (self.stype) {
-        self.stype(setTypeQuit);
+        self.stype(setTypeSave);
     }
 }
 
@@ -162,8 +161,17 @@ static NSString * const collectionCellID = @"collectionCellID";
 
 - (void)startSignBtnClicked
 {
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"1"];
 
+    if (self.stype) {
+        self.stype(setTypeSignOrCancel);
+    }
+
+}
+
+- (void)showSelectView
+{
+    self.backImageView.hidden = NO;
+    self.centerView.hidden = self.collectionView.hidden = YES;
 }
 
 - (void)signEditBtnClicked
@@ -178,6 +186,9 @@ static NSString * const collectionCellID = @"collectionCellID";
 
 - (void)saveBtnClicked
 {
+    self.backImageView.hidden = NO;
+    self.centerView.hidden = self.collectionView.hidden = YES;
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"0"];
     if (self.stype) {
         self.stype(setTypeSave);
     }

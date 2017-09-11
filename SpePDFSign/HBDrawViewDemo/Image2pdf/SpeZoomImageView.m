@@ -24,7 +24,7 @@
         self.contentMode = UIViewContentModeScaleAspectFit;
         self.clipsToBounds = YES;
         oldFrame = self.frame;
-        largeFrame = CGRectMake(0 - [UIScreen mainScreen].bounds.size.width, 0 - [UIScreen mainScreen].bounds.size.height, 3 * oldFrame.size.width, 3 * oldFrame.size.height);
+        largeFrame = CGRectMake(0 - [UIScreen mainScreen].bounds.size.width, 0 - [UIScreen mainScreen].bounds.size.height,2*oldFrame.size.width,  2*oldFrame.size.height);
         [self addGestureRecognizerToView:self];
         
         [[NSNotificationCenter defaultCenter]addObserverForName:@"SpeZoomImageView"
@@ -97,15 +97,22 @@
     UIView *view = pinchGestureRecognizer.view;
     if (pinchGestureRecognizer.state == UIGestureRecognizerStateBegan || pinchGestureRecognizer.state == UIGestureRecognizerStateChanged) {
     view.transform = CGAffineTransformScale(view.transform, pinchGestureRecognizer.scale, pinchGestureRecognizer.scale);
-    if (self.frame.size.width < oldFrame.size.width) {
+    if (self.frame.size.width <= oldFrame.size.width) {
     self.frame = oldFrame;
     //让图片无法缩得比原图小
     }
-    if (self.frame.size.width > 3 * oldFrame.size.width) {
+
+    if (self.frame.size.width > 2 * oldFrame.size.width) {
     self.frame = largeFrame;
     }
+        
     pinchGestureRecognizer.scale = 1;
     }
+}
+
+- (float)scale
+{
+    return m_pinchGestureRecognizer.scale ;
 }
 
 - (void)reset

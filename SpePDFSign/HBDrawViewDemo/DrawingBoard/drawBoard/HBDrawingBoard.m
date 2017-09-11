@@ -46,7 +46,7 @@
 
 @end
 
-#define ThumbnailPath [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"HBThumbnail"]
+#define ThumbnailPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"HBThumbnail"]
 
 @implementation HBDrawingBoard
 
@@ -210,7 +210,7 @@
     
     HBPath *path = [self.paths lastObject];
     
-    UIImage *image = [self screenshot:self.drawImage];
+    UIImage *image = [self screenshot:self.drawImage withFrame:self.frame];
     
     self.drawImage.image = image;
     
@@ -260,9 +260,24 @@
     UIGraphicsEndImageContext();
     
 }
-- (UIImage *)screenshot:(UIView *)shotView{
+- (UIImage *)screenshot:(UIView *)shotView withFrame:(CGRect)shotFrame{
+
+    UIGraphicsBeginImageContextWithOptions(shotFrame.size, NO, 0);
+
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    [shotView.layer renderInContext:context];
+
+    UIImage *getImage = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+
+    return getImage;
+}
+
+- (UIImage *)screenshot:(UIView *)shotView withFrame:(CGRect)shotFrame withScale:(float)scale{
     
-    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 0.0);
+    UIGraphicsBeginImageContextWithOptions(shotFrame.size, NO, shotFrame.size.width/[UIScreen mainScreen].bounds.size.width);
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -372,6 +387,10 @@
         [_settingBoard getSettingType:^(setType type) {
 
             switch (type) {
+                case setTypeSignOrCancel:{
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:self.m_isDrawing ? @"0"  : @"1"];
+                    break;
+                }
                 case setTypePen :
                 {
                     self.ise = NO;
@@ -404,28 +423,42 @@
                     
 
                     [weakSelf.drawWindow hideWithAnimationTime:0.25];
-                    [self.backImage reset];
-                    UIImage *currentImage = [self screenshot:self];
+//                    [self.backImage reset];
+                    UIImage *currentImage = [self screenshot:self withFrame:self.frame];
                     
                     [self.settingBoard.m_pdfModel.m_arrPDFImages replaceObjectAtIndex:self.settingBoard.m_pdfModel.m_indexPage withObject:currentImage];
 
                     
                     NSString *name = [NSString stringWithFormat:@"%@.pdf",[self getTimeString]];
-                    NSString *pdfPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:name];
+                    NSString *pdfPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:name];
                     BOOL result = [WYPDFFile createPDFWithImages:self.settingBoard.m_pdfModel.m_arrPDFImages fileName:name];
                     
                     if(result){
                         NSString * PDFSavedNotification        = @"PDFSavedNotification";
                         [[NSNotificationCenter defaultCenter]postNotificationName:PDFSavedNotification object:pdfPath];
                         NSLog(@"保存成功");
+                        [self.delegate onSaveWith:pdfPath];
                     }
                     else
                     {
                         NSString * PDFSavedNotification        = @"PDFSavedNotification";
                         [[NSNotificationCenter defaultCenter]postNotificationName:PDFSavedNotification object:@""];
                         NSLog(@"保存失败");
+                        [self.delegate onSaveWith:pdfPath];
                     }
-                    [self.delegate onSaveWith:pdfPath];
+
+
+                    //清空笔画
+
+                    [self.paths removeAllObjects];
+                    [self.tempPath removeAllObjects];
+                    [self.tempPoints removeAllObjects];
+
+                    [NSFileManager deleteFile:ThumbnailPath];
+
+                    self.drawImage.image = nil;
+
+
                     break;
                     
                 }
@@ -433,14 +466,14 @@
                 {
                     [weakSelf.drawWindow hideWithAnimationTime:0.25];
                     [self.backImage reset];
-                    UIImage *currentImage = [self screenshot:self];
+                    UIImage *currentImage = [self screenshot:self withFrame:self.backImage.frame];
                     //                    UIImageWriteToSavedPhotosAlbum([self screenshot:self], nil, nil, nil);
 
 
                     [self.settingBoard.m_pdfModel.m_arrPDFImages replaceObjectAtIndex:self.settingBoard.m_pdfModel.m_indexPage withObject:currentImage];
 
                     NSString *name = [NSString stringWithFormat:@"%@.pdf",[self getTimeString]];
-                    NSString *pdfPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:name];
+                    NSString *pdfPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:name];
                     BOOL result = [WYPDFFile createPDFWithImages:self.settingBoard.m_pdfModel.m_arrPDFImages fileName:name];
 
                     if(result){
@@ -545,12 +578,12 @@
                 {
                     [weakSelf.drawWindow hideWithAnimationTime:0.25];
                     [self.backImage reset];
-                    UIImage *currentImage = [self screenshot:self];
+                    UIImage *currentImage = [self screenshot:self withFrame:self.backImage.frame];
                     
                     [self.settingBoard.m_pdfModel.m_arrPDFImages replaceObjectAtIndex:self.settingBoard.m_pdfModel.m_indexPage withObject:currentImage];
                     
                     NSString *name = [NSString stringWithFormat:@"%@.pdf",[self getTimeString]];
-                    NSString *pdfPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:name];
+                    NSString *pdfPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:name];
                     BOOL result = [WYPDFFile createPDFWithImages:self.settingBoard.m_pdfModel.m_arrPDFImages fileName:name];
                     
                     if(result){

@@ -16,6 +16,9 @@
 }
 @property (nonatomic,strong) NSMutableArray *m_arrPDFImages;
 @property (assign) NSInteger m_indexPage;
+@property (nonatomic,strong)NSURL *m_url;
 - (id)initWith:(NSURL *)url;
+
+- (void)refreshPDF:(NSURL *)url;
 @end
 

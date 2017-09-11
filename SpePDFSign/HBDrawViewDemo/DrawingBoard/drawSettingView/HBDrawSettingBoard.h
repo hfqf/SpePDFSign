@@ -21,6 +21,7 @@ typedef NS_ENUM(NSInteger,setType) {
     setTyperegeneration,
     setTypeClearAll,
     setTypeQuit,
+    setTypeSignOrCancel,
 };
 
 typedef void(^boardSettingBlock)(setType type);
@@ -34,6 +35,7 @@ typedef void(^boardSettingBlock)(setType type);
 - (void)signEditBtnClicked;
 - (void)saveBtnClicked;
 - (void)saveAndQutiBtnClicked;
+- (void)showSelectView;
 @property (nonatomic,strong) UIImage_PDFModel *m_pdfModel;
 
 @end
