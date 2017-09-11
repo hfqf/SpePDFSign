@@ -15,6 +15,7 @@ typedef NS_ENUM(NSInteger,setType) {
     setTypeCamera,
     setTypeAlbum,
     setTypeSave,
+    setTypeSaveAndQuit,
     setTypeEraser,
     setTypeBack,
     setTyperegeneration,

@@ -97,11 +97,9 @@ static NSString * const collectionCellID = @"collectionCellID";
     self.backImageView.hidden = NO;
     self.centerView.hidden = self.collectionView.hidden = YES;
     
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"0"];
 }
 - (IBAction)openCamera:(UIButton *)sender {
 
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"1"];
     self.backImageView.hidden = YES;
     self.centerView.hidden = self.collectionView.hidden = NO;
     
@@ -111,7 +109,6 @@ static NSString * const collectionCellID = @"collectionCellID";
 }
 - (IBAction)openAlbum:(UIButton *)sender {
     
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"0"];
     if (self.stype) {
         self.stype(setTypeSave);
     }
@@ -119,7 +116,6 @@ static NSString * const collectionCellID = @"collectionCellID";
 }
 - (IBAction)saveImage:(id)sender {
     
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"0"];
     if (self.stype) {
         self.stype(setTypeQuit);
     }

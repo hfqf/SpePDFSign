@@ -201,12 +201,17 @@ NSString * const PDFSavedNotification        = @"PDFSavedNotification";
 
     }else if (btn.tag == 1){
 
-    }else if (btn.tag == 1){
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"1"];
 
-    }else if (btn.tag == 1){
+
+    }else if (btn.tag == 2){
+
+    }else if (btn.tag == 3){
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"0"];
 
     }else{
-        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"0"];
+        [self onQuitPDFEdit];
     }
 }
 
