@@ -196,6 +196,10 @@ static NSString * const collectionCellID = @"collectionCellID";
 
 - (void)saveAndQutiBtnClicked
 {
+    self.backImageView.hidden = NO;
+    self.centerView.hidden = self.collectionView.hidden = YES;
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:@"0"];
+
     if (self.stype) {
         self.stype(setTypeSaveAndQuit);
     }

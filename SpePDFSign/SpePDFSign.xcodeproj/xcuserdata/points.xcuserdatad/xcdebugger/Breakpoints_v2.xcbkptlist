@@ -298,22 +298,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HBDrawViewDemo/DrawingBoard/drawBoard/HBDrawingBoard.m"
-            timestampString = "526828504.76674"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "287"
-            endingLineNumber = "287"
-            landmarkName = "-screenshot:withFrame:withScale:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HBDrawViewDemo/DrawingBoard/drawBoard/HBDrawingBoard.m"
             timestampString = "526832700.239661"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

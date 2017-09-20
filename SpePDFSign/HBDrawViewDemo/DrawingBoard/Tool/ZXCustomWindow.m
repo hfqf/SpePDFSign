@@ -92,6 +92,9 @@
 
 - (void)hideWithAnimationTime:(NSTimeInterval)second
 {
+    if(self.m_delegate && [self.m_delegate respondsToSelector:@selector(onHideMenuView)]){
+        [self.m_delegate onHideMenuView];
+    }
     self.animationTime  = second;
 //    if (self.hidden) return;
     

@@ -54,6 +54,8 @@
 {
     UIImage_PDFModel *pdfModel = [[UIImage_PDFModel alloc]initWith:pdfUrl];
     self.settingBoard.m_pdfModel = pdfModel;
+
+   [[NSNotificationCenter defaultCenter] postNotificationName:ImageBoardNotification object:nil userInfo:[NSDictionary dictionaryWithObject:pdfModel.m_arrPDFImages.firstObject forKey:@"imageBoardName"]];
 }
 
 
@@ -210,10 +212,10 @@
     
     HBPath *path = [self.paths lastObject];
     
-    UIImage *image = [self screenshot:self.drawImage withFrame:self.frame];
+    UIImage *image = [self screenshot:self.drawImage];
     
     self.drawImage.image = image;
-    
+
     [self.drawView setBrush:nil];
     
     NSData *imageData = UIImagePNGRepresentation(image);//UIImageJPEGRepresentation(image, 0.4);
@@ -260,6 +262,21 @@
     UIGraphicsEndImageContext();
     
 }
+- (UIImage *)screenshot:(UIView *)shotView{
+
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 0.0);
+
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    [shotView.layer renderInContext:context];
+
+    UIImage *getImage = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+
+    return getImage;
+}
+
 - (UIImage *)screenshot:(UIView *)shotView withFrame:(CGRect)shotFrame{
 
     UIGraphicsBeginImageContextWithOptions(shotFrame.size, NO, 0);
@@ -275,20 +292,6 @@
     return getImage;
 }
 
-- (UIImage *)screenshot:(UIView *)shotView withFrame:(CGRect)shotFrame withScale:(float)scale{
-    
-    UIGraphicsBeginImageContextWithOptions(shotFrame.size, NO, shotFrame.size.width/[UIScreen mainScreen].bounds.size.width);
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    [shotView.layer renderInContext:context];
-    
-    UIImage *getImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return getImage;
-}
 - (NSString *)getTimeString{
     
     NSDateFormatter  *dateformatter = nil;
@@ -388,6 +391,15 @@
 
             switch (type) {
                 case setTypeSignOrCancel:{
+                    if(self.m_isDrawing){
+                        //清空笔画
+
+                        [self.paths removeAllObjects];
+                        [self.tempPath removeAllObjects];
+                        [self.tempPoints removeAllObjects];
+                        [NSFileManager deleteFile:ThumbnailPath];
+                        self.drawImage.image = nil;
+                    }
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"SpeZoomImageView" object:self.m_isDrawing ? @"0"  : @"1"];
                     break;
                 }
@@ -420,10 +432,13 @@
                     break;
                 case setTypeSave:
                 {
-                    
+
 
                     [weakSelf.drawWindow hideWithAnimationTime:0.25];
-//                    [self.backImage reset];
+                    if(self.paths.count ==0){
+                        return ;
+                    }
+                    [self.backImage reset];
                     UIImage *currentImage = [self screenshot:self withFrame:self.frame];
                     
                     [self.settingBoard.m_pdfModel.m_arrPDFImages replaceObjectAtIndex:self.settingBoard.m_pdfModel.m_indexPage withObject:currentImage];
@@ -464,10 +479,15 @@
                 }
                 case setTypeSaveAndQuit:
                 {
+
                     [weakSelf.drawWindow hideWithAnimationTime:0.25];
+                    if(self.paths.count == 0){
+                         [self.delegate onQuitPDFEdit];
+                        return;
+                    }
+
                     [self.backImage reset];
-                    UIImage *currentImage = [self screenshot:self withFrame:self.backImage.frame];
-                    //                    UIImageWriteToSavedPhotosAlbum([self screenshot:self], nil, nil, nil);
+                    UIImage *currentImage = [self screenshot:self withFrame:self.frame];
 
 
                     [self.settingBoard.m_pdfModel.m_arrPDFImages replaceObjectAtIndex:self.settingBoard.m_pdfModel.m_indexPage withObject:currentImage];
@@ -487,7 +507,7 @@
                         [[NSNotificationCenter defaultCenter]postNotificationName:PDFSavedNotification object:@""];
                         NSLog(@"保存失败");
                     }
-                    [self.delegate onQuitPDFEdit:pdfPath];
+                    [self.delegate onQuitPDFEdit];
                     break;
                 }
 
@@ -578,7 +598,7 @@
                 {
                     [weakSelf.drawWindow hideWithAnimationTime:0.25];
                     [self.backImage reset];
-                    UIImage *currentImage = [self screenshot:self withFrame:self.backImage.frame];
+                    UIImage *currentImage = [self screenshot:self withFrame:self.frame];
                     
                     [self.settingBoard.m_pdfModel.m_arrPDFImages replaceObjectAtIndex:self.settingBoard.m_pdfModel.m_indexPage withObject:currentImage];
                     
